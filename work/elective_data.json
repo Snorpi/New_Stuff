@@ -1,0 +1,38 @@
+{
+  "AZ": {
+    "elective_name": "Arizona",
+    "course_number": "NMLS #15793",
+    "chapter1": "Affordable Housing: HUD Grants and FHA Annual MIP Updates",
+    "chapter2": "AZ DIFI Enforcement Action Case Studies: A Focus on Fraud"
+  },
+  "CA-DFPI": {
+    "elective_name": "California DFPI",
+    "course_number": "NMLS #15895",
+    "chapter1": "The California Consumer Financial Protection Law - Year 2",
+    "chapter2": "Recent DFPI Enforcement Actions"
+  },
+  "FL": {
+    "elective_name": "Florida",
+    "course_number": "NMLS #15911",
+    "chapter1": "Required Florida Topics",
+    "chapter2": "Affordable Housing: HUD Grants and FHA Annual MIP Updates"
+  },
+  "Gen": {
+    "elective_name": "General Elective: Self Employed Borrowers",
+    "course_number": "NMLS #15889",
+    "chapter1": "Self-Employment Income",
+    "chapter2": "Tax Returns for Self-Employed Borrowers"
+  },
+  "GA": {
+    "elective_name": "Georgia",
+    "course_number": "NMLS #15889",
+    "chapter1": "Georgia Residential Mortgage Fraud Act",
+    "chapter2": "Fraud for Profit and Advertising Requirements"
+  },
+  "ID": {
+    "elective_name": "Idaho",
+    "course_number": "NMLS #15889",
+    "chapter1": "Recent Reinforcement",
+    "chapter2": "Deceptive Advertising"
+  }
+}
