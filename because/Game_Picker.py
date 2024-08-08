@@ -1,7 +1,7 @@
 import tkinter as tk
 import random
 
-Games = ['Game A', 'Game B', 'Game C', 'Game D', 'Game E', 'Game F']
+Games = ['Destiny 2', 'Palworld', 'Content Warning', 'Phasmophobia', 'Minecraft', 'Forza']
 
 def pickOne():
     random_game = random.choice(Games)
@@ -21,7 +21,7 @@ def yoinkGame():
 root = tk.Tk()
 root.title('Tristan Can\'t Pick A Fucking Game')
 
-root.geometry('300x200')
+root.geometry('400x200')
 root.update_idletasks()
 x = (root.winfo_screenwidth() - root.winfo_reqwidth()) // 2
 y = (root.winfo_screenheight() - root.winfo_reqheight()) // 2

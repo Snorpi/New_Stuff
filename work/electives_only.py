@@ -29,15 +29,15 @@ def generate_course_html(csv_file, elective_file, elective_column="elective",):
                 banking_fee = int(elective_info.get('elective_duration')) * 1.50
                 html_content = f"""
                 <p><a title="Click to learn more about {row['instructor_fname']}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com/images/00TemplateImages/Product_Banner/{row['instructor_fname']}_Banner.png" alt="" /></a></p>
-                <p style="text-align: center;"> </p>
+                <p> </p>
                 <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{row['course_date']}</span></p>
                 <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{row['start_time']} - {row['end_time']} {row['timezone']} Time</span></p>
                 <p style="text-align: center;"><span style="font-size: 18pt;">({row['PT']} PT / {row['MT']} MT / {row['CT']} CT / {row['ET']} ET)</span></p>
-                <p style="text-align: center;"> </p>
+                <p> </p>
                 <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>2024 {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
-                <p style="text-align: center;"> </p>
+                <p> </p>
                 <p style="text-align: center;"><span style="font-size: 14pt;">  This course fulfills the {elective_duration} Hour {elective_name} NMLS mortgage continuing education requirement for 2024 in a live webinar format. </span></p>
-                <p style="text-align: center;"> </p>
+                <p> </p>
                 <p><a title="NMLS Webcam Requirement" href="https://nationwidelicensingsystem.org/courseprovider/Course%Provider%Resources/Functional%Specification%for%All%NMLS%Approved%Courses.pdf#page=27" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" title="NMLS Webcam Requirement" src="https://mortgageeducators.com/images/00TemplateImages/webcam4.png" alt="Webcam Required, Per NMLS as of June 6th, 2022." width="652" height="129" /></a></p>
                 <p style="text-align: left;"><span style="text-decoration: underline; font-size: 14pt;"><strong>Course Content:</strong></span></p>
                 <p><span style="font-size: 10pt;"><em><span style="color: #ff0000;">*Courses will be taught in the following order*</span></em></span></p>
@@ -54,6 +54,9 @@ def generate_course_html(csv_file, elective_file, elective_column="elective",):
                 <p style="text-align: left;"><span style="font-size: 12pt;">Questions: <a href="mailto:webinar@MortgageEducators.com">webinars@MortgageEducators.com</a></span></p>
                 <p style="text-align: left;"><span style="font-size: 12pt;">NMLS Provider #1400062</span></p> 
                 <!-- 2024 {elective_duration} Hour {elective_name} CE Webinar {row['course_date']} {row['start_time']} {row['timezone']} -->
+                <!-- {row['Month']}.{row['Day']}.2024 {elective_duration}hr {row['elective']} CEQ -->
+                <!-- {row['Month']}-{row['Day']}-24-{elective_duration}-{row['elective']}-ceq -->
+                <!-- {row ['Month']}/{row['Day']} - {elective_duration} Hour {elective_name} CE Webinar -->
                 """
 
                 filename = f"{row['elective']}-{row['instructor_fname']}-{row['course_date']}.html"
@@ -64,7 +67,7 @@ def generate_course_html(csv_file, elective_file, elective_column="elective",):
                 print({e})
 
 
-csv_file = "test2.csv"
+csv_file = "tristan.csv"
 elective_file = "elective_data.json"
 
 generate_course_html(csv_file, elective_file)
