@@ -2,37 +2,182 @@
   "AZ": {
     "elective_name": "Arizona",
     "course_number": "NMLS #15793",
-    "chapter1": "Affordable Housing: HUD Grants and FHA Annual MIP Updates",
-    "chapter2": "AZ DIFI Enforcement Action Case Studies: A Focus on Fraud"
+    "elective_duration": "1",
+    "chapters": [
+      "Affordable Housing: HUD Grants and FHA Annual MIP Updates",
+      "AZ DIFI Enforcement Action Case Studies: A Focus on Fraud"
+    ]
   },
   "CA-DFPI": {
     "elective_name": "California DFPI",
     "course_number": "NMLS #15895",
-    "chapter1": "The California Consumer Financial Protection Law - Year 2",
-    "chapter2": "Recent DFPI Enforcement Actions"
+    "elective_duration": "1",
+    "chapters": [
+      "The California Consumer Financial Protection Law - Year 2",
+      "Recent DFPI Enforcement Actions"
+    ]
   },
   "FL": {
     "elective_name": "Florida",
     "course_number": "NMLS #15911",
-    "chapter1": "Required Florida Topics",
-    "chapter2": "Affordable Housing: HUD Grants and FHA Annual MIP Updates"
+    "elective_duration": "1",
+    "chapters": [
+      "Required Florida Topics",
+      "Affordable Housing: HUD Grants and FHA Annual MIP Updates"
+    ]
   },
   "Gen": {
     "elective_name": "General Elective: Self Employed Borrowers",
     "course_number": "NMLS #15889",
-    "chapter1": "Self-Employment Income",
-    "chapter2": "Tax Returns for Self-Employed Borrowers"
+    "elective_duration": "1",
+    "chapters": [
+      "Self-Employment Income",
+      "Tax Returns for Self-Employed Borrowers"
+    ]
   },
   "GA": {
     "elective_name": "Georgia",
     "course_number": "NMLS #15889",
-    "chapter1": "Georgia Residential Mortgage Fraud Act",
-    "chapter2": "Fraud for Profit and Advertising Requirements"
+    "elective_duration": "1",
+    "chapters": [
+      "Georgia Residential Mortgage Fraud Act",
+      "Fraud for Profit and Advertising Requirements"
+    ]
   },
-  "ID": {
+  "MA": {
+    "elective_name": "Massachusetts",
+    "course_number": "NMLS #15940",
+    "elective_duration": "1",
+    "chapters": [
+      "Cybersecurity",
+      "Reverse Mortgages"
+    ]
+  },
+  "MD": {
+    "elective_name": "Maryland",
+    "course_number": "NMLS #16023",
+    "elective_duration": "1",
+    "chapters": [
+      "Advertising in Maryland",
+      "Mortgage Fraud"
+    ]
+  },
+  "MN": {
+    "elective_name": "Minnesota",
+    "course_number": "NMLS #15922",
+    "elective_duration": "1",
+    "chapters": [
+      "Required Conduct",
+      "Advertising"
+    ]
+  },
+    "ID": {
     "elective_name": "Idaho",
-    "course_number": "NMLS #15889",
-    "chapter1": "Recent Reinforcement",
-    "chapter2": "Deceptive Advertising"
+    "course_number": "NMLS #15402",
+    "elective_duration": "1",
+    "chapters": [
+      "Required Conduct",
+      "Advertising"
+    ]
+  },
+  "MO": {
+    "elective_name": "Missouri",
+    "course_number": "NMLS #15923",
+    "elective_duration": "1",
+    "chapters": [
+      "Required Topics",
+      "Advertising"
+    ]
+  },
+  "NC": {
+    "elective_name": "North Carolina",
+    "course_number": "NMLS #15944",
+    "elective_duration": "1",
+    "chapters": [
+      "Security Breaches; Mortgage Broker Compensation Disclosures",
+      "Natural Disaster Lending; Advertising Requirements"
+    ]
+  },
+  "NJ": {
+    "elective_name": "New Jersey",
+    "course_number": "NMLS #16022",
+    "elective_duration": "2",
+    "chapters": [
+      "New Jersey State-Sponsored Affordable Housing Programs",
+      "Affordable Housing by HUD: Reduced FHA MIP; Section 8",
+      "Mortgage Advertising in NJ: State and Federal Requirements",
+      "Prohibited Acts and Practices for New Jersey MLOs"
+    ]
+  },
+  "NY": {
+    "elective_name": "New York",
+    "course_number": "NMLS #15925",
+    "elective_duration": "3",
+    "chapters": [
+      "Fraud, Advertising & Prohibited Acts",
+      "Identity Theft",
+      "Climate Change & Financial Crisis"
+    ]
+  },
+  "OR": {
+    "elective_name": "Oregon",
+    "course_number": "NMLS #15949",
+    "elective_duration": "2",
+    "chapters": [
+      "Licensing Law; Limitations on Mortgage Products",
+      "Required Conduct and Prohibited Acts for Oregon-License MLOs "
+    ]
+  },
+  "PA": {
+    "elective_name": "Pennsylvania",
+    "course_number": "NMLS #15943",
+    "elective_duration": "2",
+    "chapters": [
+      "Prohibited Conduct; A Case Study in Complacency",
+      "Advertising Requirements; Natural Disaster Lending"
+    ]
+  },
+  "SC-BFI": {
+    "elective_name": "South Carolina BFI",
+    "course_number": "NMLS #15915",
+    "elective_duration": "1",
+    "chapters": [
+      "Required Topics",
+      "Identity Theft"
+    ]
+  },
+  "SC-DCA": {
+    "elective_name": "South Carolina DCA",
+    "course_number": "NMLS #15914",
+    "elective_duration": "1",
+    "chapters": [
+      "Required Topics",
+      "Identity Theft"
+    ]
+  },
+  "WA": {
+    "elective_name": "Washington",
+    "course_number": "NMLS #15945",
+    "elective_duration": "1",
+    "chapters": [
+      "Washington State DPA Options & Fiduciary Duty",
+      "Prohibited Acts & Advertising Requirements"
+    ]
+  },
+  "UT": {
+    "elective_name": "Utah",
+    "course_number": "NMLS #15948",
+    "elective_duration": "1",
+    "chapters": [
+      "Recent Changes & Enforcement",
+      "Safeguarding Personal Information"
+    ]
+  },
+  "7hr": {
+    "elective_name": "Core",
+    "elective_duration": "7",
+    "chapters": [
+      ""
+    ]
   }
 }
