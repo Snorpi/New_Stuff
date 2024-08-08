@@ -1,4 +1,17 @@
 course_date,instructor_fname,start_time,end_time,timezone,elective,PT,MT,CT,ET,Month,Day
-"September 5, 2024",Kathy,9:00 AM,10:00 AM,Pacific,ID,9:00 AM,10:00 AM,11:00 AM,12:00 PM,9,5
-"September 5, 2024",Kathy,10:30 AM,11:30 AM,Pacific,MN,10:30 AM,11:30 AM,12:30 PM,1:30 PM,9,5
-"September 5, 2024",Kathy,12:00 PM,1:00 PM,Pacific,MO,12:00 PM,1:00 PM,2:00 PM,3:00 PM,9,5
+October 1st,Kerry,8:30 AM,9:30 AM,Pacific,CA,8:30 AM,9:30 AM,10:30 AM,11:30 AM,10,1
+October 2nd,Marve,9:30 AM,10:30 AM,Eastern,SC,6:30 AM,7:30 AM,8:30 AM,9:30 AM,10,2
+October 2nd,Marve,11:00 AM,12:00 PM,Eastern,NC,8:00 AM,9:00 AM,10:00 AM,11:00 AM,10,2
+October 2nd,Marve,12:30 PM,1:30 PM,Eastern,GA,9:30 AM,10:30 AM,11:30 AM,12:30 PM,10,2
+October 2nd,Marve,3:30 PM,4:30 PM,Eastern,MN,12:30 PM,1:30 PM,2:30 PM,3:30 PM,10,2
+October 4th,Kathy,9:00 AM,10:00 AM,Pacific,CA-DFPI,9:00 AM,10:00 AM,11:00 AM,12:00 PM,10,4
+October 9th,Marve,9:30 AM,10:30 AM,Eastern,FL,6:30 AM,7:30 AM,8:30 AM,9:30 AM,10,9
+October 15th,Jon,9:00 AM,10:00 AM,Pacific,CA-DFPI,9:00 AM,10:00 AM,11:00 AM,12:00 PM,10,15
+October 16th,Kathy,9:00 AM,11:00 AM,Pacific,OR,9:00 AM,10:00 AM,11:00 AM,12:00 PM,10,16
+October 16th,Kathy,1:00 PM,2:00 PM,Pacific,WA,1:00 PM,2:00 PM,3:00 PM,4:00 PM,10,16
+October 16th,Kathy,2:30 PM,3:30 PM,Pacific,UT,2:30 PM,3:30 PM,4:30 PM,5:30 PM,10,16
+October 18th,Kerry,8:30 AM,9:30 AM,Pacific,CA-DFPI,8:30 AM,9:30 AM,10:30 AM,11:30 AM,10,17
+October 29th,Marve,11:00 AM,12:00 PM,Central,GA,9:00 AM,10:00 AM,11:00 AM,12:00 PM,10,29
+October 30th,Marve,3:30 PM,4:30 PM,Eastern,PA,12:30 PM,1:30 PM,2:30 PM,3:30 PM,10,30
+October 30th,Marve,5:00 PM,6:00 PM,Eastern,MD,2:00 PM,3:00 PM,4:00 PM,5:00 PM,10,30
+October 30th,Marve,6:30 PM,7:30 PM,Eastern,MA,3:30 PM,4:30 PM,5:30 PM,6:30 PM,10,30

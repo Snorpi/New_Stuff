@@ -27,6 +27,7 @@ def generate_course_html(csv_file, elective_file, elective_column="elective",):
                 elective_duration = elective_info.get('elective_duration', 0)
                 elective_name = elective_info.get('elective_name')
                 banking_fee = int(elective_info.get('elective_duration')) * 1.50
+                course_url = f"""{row['Month']}-{row['Day']}-24-{elective_duration}-{row['elective']}-ceq"""
                 html_content = f"""
                 <p><a title="Click to learn more about {row['instructor_fname']}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com/images/00TemplateImages/Product_Banner/{row['instructor_fname']}_Banner.png" alt="" /></a></p>
                 <p> </p>
@@ -53,10 +54,19 @@ def generate_course_html(csv_file, elective_file, elective_column="elective",):
                  participation. </span></p>
                 <p style="text-align: left;"><span style="font-size: 12pt;">Questions: <a href="mailto:webinar@MortgageEducators.com">webinars@MortgageEducators.com</a></span></p>
                 <p style="text-align: left;"><span style="font-size: 12pt;">NMLS Provider #1400062</span></p> 
-                <!-- 2024 {elective_duration} Hour {elective_name} CE Webinar {row['course_date']} {row['start_time']} {row['timezone']} -->
+                <!-- 2024 {elective_duration} Hour {elective_name} CE Webinar {row['course_date']} 2024 {row['start_time']} {row['timezone']} -->
                 <!-- {row['Month']}.{row['Day']}.2024 {elective_duration}hr {row['elective']} CEQ -->
-                <!-- {row['Month']}-{row['Day']}-24-{elective_duration}-{row['elective']}-ceq -->
+                <!-- {course_url}-ceq -->
                 <!-- {row ['Month']}/{row['Day']} - {elective_duration} Hour {elective_name} CE Webinar -->
+                <h2 style="text-align: center">
+                <a
+                title="{elective_duration} Hour {elective_name} CE Webinar - {row['course_date']}"
+                href="https://mortgageeducators.com/component/virtuemart/{course_url}-detail"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{elective_duration} Hour {elective_name} CE Webinar - {row['course_date']}</a
+                >
+                </h2>
                 """
 
                 filename = f"{row['elective']}-{row['instructor_fname']}-{row['course_date']}.html"
