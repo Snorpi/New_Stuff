@@ -9,7 +9,7 @@
     ]
   },
   "CA-DFPI": {
-    "elective_name": "California DFPI",
+    "elective_name": "CA-DFPI",
     "course_number": "NMLS #15895",
     "elective_duration": "1",
     "chapters": [
@@ -131,7 +131,7 @@
   "PA": {
     "elective_name": "Pennsylvania",
     "course_number": "NMLS #15943",
-    "elective_duration": "2",
+    "elective_duration": "1",
     "chapters": [
       "Prohibited Conduct; A Case Study in Complacency",
       "Advertising Requirements; Natural Disaster Lending"
