@@ -1,0 +1,44 @@
+{
+  "Kerry": {
+    "fname": "Kerry",
+    "lname": "Blackburn",
+    "bannerlink": "/images/00TemplateImages/Product_Banner/Kerry_Banner.png",
+    "lmslink": "images/2024/LMS_Instructor_Images/Kerry_2024.png",
+    "pageanchor": "#kerryblackburn"
+  },
+  "Christa": {
+    "fname": "Christa",
+    "lname": "Nadeau",
+    "bannerlink": "/images/00TemplateImages/Product_Banner/Christa_Banner.png",
+    "lmslink": "images/2024/LMS_Instructor_Images/Christa_Nadeau_2024.png",
+    "pageanchor": "#christanadeau"
+  },
+  "Kathy": {
+    "fname": "Kerry",
+    "lname": "Blackburn",
+    "bannerlink": "/images/00TemplateImages/Product_Banner/Kathy_Banner.png",
+    "lmslink": "/images/2024/LMS_Instructor_Images/Kathy_Kemper-Zanck_2024.png",
+    "pageanchor": "#kathykemperzanck"
+  },
+  "Jon": {
+    "fname": "Jon",
+    "lname": "Wallace",
+    "bannerlink": "/images/00TemplateImages/Product_Banner/Jon_Banner.png",
+    "lmslink": "/images/2024/LMS_Instructor_Images/Jon_Wallace_2024.png",
+    "pageanchor": "#jonwallace"
+  },
+  "Marve": {
+    "fname": "Marve",
+    "lname": "Stockert",
+    "bannerlink": "/images/00TemplateImages/Product_Banner/Marve_Banner.png",
+    "lmslink": "/images/2024/LMS_Instructor_Images/Marve_Stockert_2024.png",
+    "pageanchor": "#kerryblackburn"
+  },
+  "TBD": {
+    "fname": "TBD",
+    "lname": "",
+    "bannerlink": "/images/00TemplateImages/Product_Banner/tbd_banner.png",
+    "lmslink": "/images/2024/LMS_Instructor_Images/instructor_tbd_2024.png",
+    "pageanchor": ""
+  }
+}
