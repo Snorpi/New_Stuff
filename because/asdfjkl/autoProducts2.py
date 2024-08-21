@@ -94,5 +94,5 @@ def generate_course_html(csv_file, elective_file, elective_column="elective", is
                 print({e})
 
 csv_file = "test2.csv"
-elective_file = "../work/elective_data.json"
+elective_file = "../../work/json/elective_data.json"
 generate_course_html(csv_file, elective_file, is_7plus_column="is_7plus1", elective_duration_column="elective_duration")
