@@ -3,14 +3,14 @@
     "fname": "Kerry",
     "lname": "Blackburn",
     "bannerlink": "/images/00TemplateImages/Product_Banner/Kerry_Banner.png",
-    "lmslink": "images/2024/LMS_Instructor_Images/Kerry_2024.png",
+    "lmslink": "/images/2024/LMS_Instructor_Images/Kerry_2024.png",
     "pageanchor": "#kerryblackburn"
   },
   "Christa": {
     "fname": "Christa",
     "lname": "Nadeau",
     "bannerlink": "/images/00TemplateImages/Product_Banner/Christa_Banner.png",
-    "lmslink": "images/2024/LMS_Instructor_Images/Christa_Nadeau_2024.png",
+    "lmslink": "/images/2024/LMS_Instructor_Images/Christa_Nadeau_2024.png",
     "pageanchor": "#christanadeau"
   },
   "Kathy": {
@@ -32,7 +32,7 @@
     "lname": "Stockert",
     "bannerlink": "/images/00TemplateImages/Product_Banner/Marve_Banner.png",
     "lmslink": "/images/2024/LMS_Instructor_Images/Marve_Stockert_2024.png",
-    "pageanchor": "#kerryblackburn"
+    "pageanchor": "#marvestockert"
   },
   "TBD": {
     "fname": "TBD",

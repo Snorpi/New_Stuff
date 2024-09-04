@@ -1,3 +1,4 @@
+import os
 import csv
 import functions as fc
 
@@ -57,8 +58,10 @@ def generate_lms_description(csv_file, elective_file, instructor_file):
                 </table>
                 
                 <!-- Bottom Information -->
-                <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com/{instructor_image}" alt="" /></p>
-                <p style="text-align: center;"><span style="font-size: 24pt;"><strong><a title="Click to learn more about {instructor_info.get('fname')}!" href="https://mortgageeducators.com/instructors{instructor_info.get('pageanchor')}" target="_blank" rel="noopener noreferrer">{instructor_fullname}</a></strong></span></p>
+                <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_image}" alt="" /></p>
+                <p style="text-align: center;">
+                <span style="font-size: 24pt;"><strong>
+                <a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{instructor_info.get('pageanchor')}" target="_blank" rel="noopener noreferrer">{instructor_fullname}</a></strong></span></p>
                 <p> </p>
                 <p style="text-align: center;"><span style="font-size: 14pt;"><strong>{elective_duration} Hour {elective_name} Elective</strong></span></p>
                 <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{st} - {et} {tz} Time</strong></span></p>
@@ -70,7 +73,8 @@ def generate_lms_description(csv_file, elective_file, instructor_file):
                 <p style="text-align: center;">  <strong>NMLS Course {course_number}<br /></strong><strong>NMLS Provider # 1400062 </strong>  </p>
                 """
 
-                filename = f"lms-{elective}-{course_date}.html"
+                output_dir = "C:\\Users\\tbone\\PycharmProjects\\MyNewMainStuff\\work\\lmsDescriptions"
+                filename = os.path.join(output_dir, f"{course_date}-lms-{elective}.html")
 
                 with open(filename, 'a', encoding='utf-8') as output_file:
                     output_file.write(html_content)
@@ -78,7 +82,7 @@ def generate_lms_description(csv_file, elective_file, instructor_file):
                 print(f"{row['course_date']}-{elective_name}: Problem - {e}")
 
 
-def generate_standalone_product(csv_file, elective_file, instructor_file ):
+def generate_standalone_product(csv_file, elective_file, instructor_file):
     elective_data = fc.load_elective_data(elective_file)
     instructor_data = fc.load_instructor_data(instructor_file)
 
@@ -86,7 +90,6 @@ def generate_standalone_product(csv_file, elective_file, instructor_file ):
         reader = csv.DictReader(csvfile)
         for row in reader:
             try:
-                banking_fee = int(elective_info.get('elective_duration')) * 1.50
                 elective = row['elective']
                 elective_info = elective_data.get(elective, {})
                 elective_duration = elective_info.get('elective_duration', 0)
@@ -101,8 +104,9 @@ def generate_standalone_product(csv_file, elective_file, instructor_file ):
                 course_number = elective_info.get('course_number')
                 course_url = f"""{row['Month']}-{row['Day']}-24-{elective_duration}-{elective}-ceq"""
                 cd = row['course_date']
+                banking_fee = int(elective_info.get('elective_duration')) * 1.50
                 html_content = f"""
-                <p><a title="Click to learn more about {row['instructor_fname']}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com/{instructor_banner}" alt="" /></a></p>
+                <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="" /></a></p>
                 <p> </p>
                 <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2024</span></p>
                 <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{st} - {et} {tz} Time</span></p>
@@ -116,7 +120,7 @@ def generate_standalone_product(csv_file, elective_file, instructor_file ):
                 <p style="text-align: left;"><span style="text-decoration: underline; font-size: 14pt;"><strong>Course Content:</strong></span></p>
                 <p><span style="font-size: 10pt;"><em><span style="color: #ff0000;">*Courses will be taught in the following order*</span></em></span></p>
                 <p> </p>
-                <p><span style="text-decoration: underline; font-size: 12pt;"><strong>{elective_duration} Hour {elective_name} Elective: {course_number}</strong></span></p>
+                <p><span style="text-decoration: underline; font-size: 12pt;"><strong>{elective_duration} Hour {elective_name} Elective: NMLS {course_number}</strong></span></p>
                 """
 
                 html_content += fc.generate_chapter_html(elective_info.get('chapters', []))
@@ -148,7 +152,8 @@ def generate_standalone_product(csv_file, elective_file, instructor_file ):
                 </h2>
                 """
 
-                filename = f"{elective}-{instructor_info.get('fname')}-{cd}.html"
+                output_dir = "C:\\Users\\tbone\\PycharmProjects\\MyNewMainStuff\\work\\productDescriptions"
+                filename = os.path.join(output_dir, f"{elective}-{instructor_info.get('fname')}-{cd}.html")
 
                 with open(filename, 'a', encoding='utf-8') as output_file:
                     output_file.write(html_content)
@@ -196,7 +201,7 @@ def generate_7_1_html(csv_file, elective_file, instructor_file):
                 <p style="text-align: left;"><span style="text-decoration: underline; font-size: 14pt;"><strong>Course Content:</strong></span></p>
                 <p><span style="font-size: 10pt;"><em><span style="color: #ff0000;">*Courses will be taught in the following order*</span></em></span></p>
                 <p> </p>
-                <p><span style="text-decoration: underline; font-size: 12pt;"><strong>{elective_duration} Hour {elective_name} Elective: {course_number}</strong></span></p>
+                <p><span style="text-decoration: underline; font-size: 12pt;"><strong>{elective_duration} Hour {elective_name} Elective: NMLS {course_number}</strong></span></p>
                 """
 
                 html_content += fc.generate_chapter_html(elective_info.get('chapters', []))
@@ -226,7 +231,8 @@ def generate_7_1_html(csv_file, elective_file, instructor_file):
                 </h2>
                 """
 
-                filename = f"{elective}-{instructor}-{cd}.html"
+                output_dir = "C:\\Users\\tbone\\PycharmProjects\\MyNewMainStuff\\work\\productDescriptions"
+                filename = os.path.join(output_dir, f"{elective}-{instructor}-{cd}.html")
 
                 with open(filename, 'a', encoding='utf-8') as output_file:
                     output_file.write(html_content)
@@ -236,15 +242,15 @@ def generate_7_1_html(csv_file, elective_file, instructor_file):
 
 
 
-csv_file = "csv/lms_test_1.csv"
+csv_file = "csv/lms_desc.csv"
 elective_file = "json/elective_data.json"
 instructor_file = "json/instructors.json"
 
 
-# These should all be run separately
+# Example Usage
 
 # For LMS Title, Certificate Title, Certificate Info, Course Information Pages
-# generate_lms_description(csv_file, elective_file, instructor_file)
+generate_lms_description(csv_file, elective_file, instructor_file)
 
 # For Generating state elective product descriptions, title, alias, sku, page title, link
 # generate_standalone_product(csv_file, elective_file, instructor_file)
