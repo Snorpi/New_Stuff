@@ -39,3 +39,43 @@ def generate_7hr_html():
         """
     return core_html
 
+
+def generateProductinfo(fullstate, elective, elective_duration, elective_name, cd, st, tz, productsku, pagetitle,
+                        course_url):
+    if fullstate == 'y':
+        productinformation = f"""
+        <!-- 2024 7 + {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
+        <!-- {productsku} -->
+        <!-- {course_url} -->
+        <!-- {pagetitle} -->
+        <!-- asana info -->
+        <!-- {elective_duration}Hr {elective} 
+        <h2 style="text-align: center">
+        <a
+        title="7 + {elective_duration} Hour {elective_name} CE Webinar - {cd}"
+        href="https://mortgageeducators.com/component/virtuemart/{course_url}-detail"
+        target="_blank"
+        rel="noopener noreferrer"
+        >7 + {elective_duration} Hour {elective_name} CE Webinar - {cd}</a
+        >
+        </h2>
+    """
+    else:
+        productinformation = f"""
+        <!-- 2024 {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
+        <!-- {productsku} -->
+        <!-- {course_url} -->
+        <!-- {pagetitle} -->
+        <!-- asana info -->
+        <!-- {elective_duration}Hr {elective} 
+        <h2 style="text-align: center">
+        <a
+        title="{elective_duration} Hour {elective_name} CE Webinar - {cd}"
+        href="https://mortgageeducators.com/component/virtuemart/{course_url}-detail"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{elective_duration} Hour {elective_name} CE Webinar - {cd}</a
+        >
+        </h2>
+        """
+    return productinformation
