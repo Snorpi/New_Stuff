@@ -1,13 +1,13 @@
-import os
 import csv
 import functions as fc
+import lmsfunctions as lms
 
-
+# for standalone products
 def generate_standalone_product(elective, elective_info, elective_duration,
-                      elective_name, instructor, instructor_info, instructor_banner, tz, st, et, timezonelist,
-                      course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle):
+                                elective_name, instructor, instructor_info, instructor_banner, tz, st, et, timezonelist,
+                                course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle):
     try:
-        html_content = f"""
+        standalone_content = f"""
         <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="" /></a></p>
         <p> </p>
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2024</span></p>
@@ -25,9 +25,9 @@ def generate_standalone_product(elective, elective_info, elective_duration,
         <p><span style="text-decoration: underline; font-size: 12pt;"><strong>{elective_duration} Hour {elective_name} Elective: NMLS {course_number}</strong></span></p>
         """
 
-        html_content += fc.generate_chapter_html(elective_info.get('chapters', []))
+        standalone_content += fc.generate_chapter_html(elective_info.get('chapters', []))
 
-        html_content += f"""
+        standalone_content += f"""
         <p><span style="font-size: 12pt;"><strong>***This live webinar course includes only the {elective_duration} hour(s) of {elective_name} CE material. If you need additional state education, those can be found <a href="https://mortgageeducators.com/articles?id=751" target="_blank" rel="noopener noreferrer">HERE</a> in an online format***</strong></span></p>
         <p style="text-align: left;"><span style="font-size: 12pt;">Includes the ${banking_fee}0 NMLS banking fee. </span></p>
         <p style="text-align: left;"><span style="font-size: 12pt;">This course is in a live webinar format and requires the student to be active and pay attention the entire time. Control measures will be taken to ensure   
@@ -36,12 +36,11 @@ def generate_standalone_product(elective, elective_info, elective_duration,
         <p style="text-align: left;"><span style="font-size: 12pt;">NMLS Provider #1400062</span></p> 
         
         """
-        return html_content
+        return standalone_content
     except Exception as e:
         print(f"{cd}-{elective_name}: Problem - {e}")
 
-
-
+# for 7+1 Products
 def generate_7_1_html(elective, elective_info, elective_duration,
                       elective_name, instructor, instructor_info, instructor_banner, tz, st, et, timezonelist,
                       course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle):
@@ -80,15 +79,97 @@ def generate_7_1_html(elective, elective_info, elective_duration,
     except Exception as e:
         print(f"{cd}-{elective}: Problem - {e}")
 
-
-
-
-
+# these should be changed, definitely csv_file. you know, why make test products just make real ones and fix them if they're wrong lol
 csv_file = "csv/oh.csv"
 elective_file = "json/elective_data.json"
 instructor_file = "json/instructors.json"
 
+# this would be the main function i guess.
+def productCreator(csv_file):
+    elective_data = fc.load_elective_data(elective_file)
+    instructor_data = fc.load_instructor_data(instructor_file)
 
+    with (open(csv_file, 'r') as csvfile):
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            try:
+                # elective information
+                elective = row['elective']
+                elective_info = elective_data.get(elective, {})
+                elective_duration = elective_info.get('elective_duration', 0)
+                elective_name = elective_info.get('elective_name')
+
+                # instructor data
+                instructor = row['instructor']
+                instructor_info = instructor_data.get(instructor, {})
+                instructor_banner = instructor_info.get('bannerlink')
+                instructor_fullname = f"{instructor_info.get('fname')} {instructor_info.get('lname')}"
+                pageanchor = instructor_info.get('pageanchor')
+
+                # course time information
+                tz = row['timezone']
+                st = row['start_time']
+                et = row['end_time']
+                timezonelist = f"({row['PT']} PT / {row['MT']} MT / {row['CT']} CT / {row['ET']} ET)"
+
+                # actual course info
+                course_number = elective_info.get('course_number')
+                course_url = f"{row['Month']}-{row['Day']}-24-{elective_duration}-{elective}-ceq"
+                cd = row['course_date']
+                banking_fee = int(elective_info.get('elective_duration')) * 1.50
+
+                # "backend type stuff"
+                productsku = f"{row['Month']}.{row['Day']}.24 - 7 + {elective_duration} {elective} CEQ"
+                pagetitle = f"{row['Month']}/{row['Day']} - 7 + {elective_duration} Hour {elective} CE Webinar"
+                fullstate = row['full']
+
+                # LMS assignments
+                course_title = f"Webinar {elective_duration} Hour {elective_name} Elective CE {course_number} {cd}, 2024 {st} {tz}"
+                instructor_image = instructor_info.get('lmslink')
+                if fullstate == 'y':
+                    html_content = f""" """
+                    html_content += generate_7_1_html(elective, elective_info, elective_duration,
+                                                      elective_name, instructor, instructor_info, instructor_banner, tz,
+                                                      st, et, timezonelist,
+                                                      course_number, course_url, cd, banking_fee, pageanchor,
+                                                      productsku, pagetitle)
+
+                    html_content += fc.generateProductinfo(fullstate, elective, elective_duration, elective_name, cd,
+                                                           st, tz, productsku, pagetitle, course_url)
+
+                    fc.outputProductDir(elective, instructor, cd, html_content)
+
+                elif fullstate == 'n':
+                    standalone_content = f""" """
+                    standalone_content += generate_standalone_product(elective, elective_info, elective_duration,
+                                                                      elective_name, instructor, instructor_info,
+                                                                      instructor_banner, tz, st, et, timezonelist,
+                                                                      course_number, course_url, cd, banking_fee,
+                                                                      pageanchor,
+                                                                      productsku, pagetitle)
+                    standalone_content += fc.generateProductinfo(fullstate, elective, elective_duration, elective_name,
+                                                                 cd,
+                                                                 st, tz, productsku, pagetitle, course_url)
+
+                    fc.outputProductDir(elective, instructor, cd, standalone_content)
+
+            except Exception as e:
+                print(f"{cd}-{elective}: Problem - {e}")
+
+            finally:
+                lms_content = f""" """
+                lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
+                                                            course_number, cd,
+                                                            instructor_fullname, instructor_image, instructor,
+                                                            pageanchor, st, et, tz,
+                                                            timezonelist)
+
+                fc.outputLmsDir(cd, elective, lms_content)
+
+
+productCreator(csv_file)
+
+# ################################################## old and unused these days because I'm a cool guy now
 # Example Usage
 
 # For LMS Title, Certificate Title, Certificate Info, Course Information Pages
@@ -99,58 +180,3 @@ instructor_file = "json/instructors.json"
 
 # For generating 7+1 product descriptions, title, alias, sku, page title, link
 # generate_7_1_html(csv_file, elective_file, instructor_file)
-
-
-
-def productCreator(csv_file):
-    elective_data = fc.load_elective_data(elective_file)
-    instructor_data = fc.load_instructor_data(instructor_file)
-
-    with (open(csv_file, 'r') as csvfile):
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            try:
-                elective = row['elective']
-                elective_info = elective_data.get(elective, {})
-                elective_duration = elective_info.get('elective_duration', 0)
-                elective_name = elective_info.get('elective_name')
-                instructor = row['instructor']
-                instructor_info = instructor_data.get(instructor, {})
-                instructor_banner = instructor_info.get('bannerlink')
-                pageanchor = instructor_info.get('pageanchor')
-                tz = row['timezone']
-                st = row['start_time']
-                et = row['end_time']
-                timezonelist = f"({row['PT']} PT / {row['MT']} MT / {row['CT']} CT / {row['ET']} ET)"
-                course_number = elective_info.get('course_number')
-                course_url = f"{row['Month']}-{row['Day']}-24-{elective_duration}-{elective}-ceq"
-                cd = row['course_date']
-                banking_fee = int(elective_info.get('elective_duration')) * 1.50
-                productsku = f"{row['Month']}.{row['Day']}.24 - 7 + {elective_duration} {elective} CEQ"
-                pagetitle = f"{row['Month']}/{row['Day']} - 7 + {elective_duration} Hour {elective} CE Webinar"
-                fullstate = row['full']
-
-                if fullstate == 'y':
-                    html_content = f""" """
-                    html_content += generate_7_1_html(elective, elective_info, elective_duration,
-                      elective_name, instructor, instructor_info, instructor_banner, tz, st, et, timezonelist,
-                      course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle)
-                    html_content += fc.generateProductinfo(fullstate, elective, elective_duration, elective_name, cd, st, tz, productsku, pagetitle, course_url)
-
-                elif fullstate == 'n':
-                    html_content = f""" """
-                    html_content += generate_standalone_product(elective, elective_info, elective_duration,
-                      elective_name, instructor, instructor_info, instructor_banner, tz, st, et, timezonelist,
-                      course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle)
-                    html_content += fc.generateProductinfo(fullstate, elective, elective_duration, elective_name, cd, st, tz, productsku, pagetitle, course_url)
-            except Exception as e:
-                print(f"{cd}-{elective}: Problem - {e}")
-            finally:
-                output_dir = "C:\\Users\\tbone\\PycharmProjects\\MyNewMainStuff\\work\\productDescriptions"
-                filename = os.path.join(output_dir, f"{elective}-{instructor}-{cd}.html")
-
-                with open(filename, 'a', encoding='utf-8') as output_file:
-                    output_file.write(html_content)
-
-
-productCreator(csv_file)

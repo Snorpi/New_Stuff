@@ -1,3 +1,5 @@
+import os
+
 import json
 
 
@@ -15,6 +17,24 @@ def load_instructor_data(file_path):
     return instructor_data
 
 
+# outputs product descriptions to their directory
+def outputProductDir(elective, instructor, cd, html_content):
+    output_dir = "C:\\Users\\tbone\\PycharmProjects\\MyNewMainStuff\\work\\productDescriptions"
+    filename = os.path.join(output_dir, f"{elective}-{instructor}-{cd}.html")
+
+    with open(filename, 'a', encoding='utf-8') as output_file:
+        output_file.write(html_content)
+
+
+# outputs LMS course descriptions to their directory
+def outputLmsDir(cd, elective, lms_content):
+    output_dir = "C:\\Users\\tbone\\PycharmProjects\\MyNewMainStuff\\work\\lmsDescriptions"
+    filename = os.path.join(output_dir, f"{cd}-lms-{elective}.html")
+
+    with open(filename, 'a', encoding='utf-8') as output_file:
+        output_file.write(lms_content)
+
+
 # gets chapter titles for product description
 def generate_chapter_html(chapters):
     chapter_html = ""
@@ -23,7 +43,7 @@ def generate_chapter_html(chapters):
     return chapter_html
 
 
-# generates html for 7hr core
+# generates html for 7hr core product
 def generate_7hr_html():
     core_html = f"""
                 <p><span style="text-decoration: underline; font-size: 12pt;"><strong>7 Hour SAFE CORE Continuing Education Course: NMLS #15898</strong></span></p>
@@ -40,42 +60,47 @@ def generate_7hr_html():
     return core_html
 
 
+# generates the product title, sku, url, html link, page title, etc, for products.
 def generateProductinfo(fullstate, elective, elective_duration, elective_name, cd, st, tz, productsku, pagetitle,
                         course_url):
-    if fullstate == 'y':
-        productinformation = f"""
-        <!-- 2024 7 + {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
-        <!-- {productsku} -->
-        <!-- {course_url} -->
-        <!-- {pagetitle} -->
-        <!-- asana info -->
-        <!-- {elective_duration}Hr {elective} 
-        <h2 style="text-align: center">
-        <a
-        title="7 + {elective_duration} Hour {elective_name} CE Webinar - {cd}"
-        href="https://mortgageeducators.com/component/virtuemart/{course_url}-detail"
-        target="_blank"
-        rel="noopener noreferrer"
-        >7 + {elective_duration} Hour {elective_name} CE Webinar - {cd}</a
-        >
-        </h2>
-    """
-    else:
-        productinformation = f"""
-        <!-- 2024 {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
-        <!-- {productsku} -->
-        <!-- {course_url} -->
-        <!-- {pagetitle} -->
-        <!-- asana info -->
-        <!-- {elective_duration}Hr {elective} 
-        <h2 style="text-align: center">
-        <a
-        title="{elective_duration} Hour {elective_name} CE Webinar - {cd}"
-        href="https://mortgageeducators.com/component/virtuemart/{course_url}-detail"
-        target="_blank"
-        rel="noopener noreferrer"
-        >{elective_duration} Hour {elective_name} CE Webinar - {cd}</a
-        >
-        </h2>
+    try:
+        if fullstate == 'y':
+            productinformation = f"""
+            <!-- 2024 7 + {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
+            <!-- {productsku} -->
+            <!-- {course_url} -->
+            <!-- {pagetitle} -->
+            <!-- asana info -->
+            <!-- {elective_duration}Hr {elective} 
+            <h2 style="text-align: center">
+            <a
+            title="7 + {elective_duration} Hour {elective_name} CE Webinar - {cd}"
+            href="https://mortgageeducators.com/component/virtuemart/{course_url}-detail"
+            target="_blank"
+            rel="noopener noreferrer"
+            >7 + {elective_duration} Hour {elective_name} CE Webinar - {cd}</a
+            >
+            </h2>
         """
+
+        if fullstate == 'n':
+            productinformation = f"""
+            <!-- 2024 {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
+            <!-- {productsku} -->
+            <!-- {course_url} -->
+            <!-- {pagetitle} -->
+            <!-- asana info -->
+            <!-- {elective_duration}Hr {elective} 
+            <h2 style="text-align: center">
+            <a
+            title="{elective_duration} Hour {elective_name} CE Webinar - {cd}"
+            href="https://mortgageeducators.com/component/virtuemart/{course_url}-detail"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{elective_duration} Hour {elective_name} CE Webinar - {cd}</a
+            >
+            </h2>
+            """
+    except Exception as e:
+        print(f"{pagetitle} - Error - {e}")
     return productinformation

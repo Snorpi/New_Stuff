@@ -175,6 +175,7 @@
   },
   "7hr": {
     "elective_name": "Core",
+    "course_number": "#15898",
     "elective_duration": "7",
     "chapters": [
       ""
