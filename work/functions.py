@@ -102,5 +102,5 @@ def generateProductinfo(fullstate, elective, elective_duration, elective_name, c
             </h2>
             """
     except Exception as e:
-        print(f"{pagetitle} - Error - {e}")
+        print(f"How did you mess up generating the product information for {pagetitle}??  -- {e}")
     return productinformation

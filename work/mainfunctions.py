@@ -4,14 +4,14 @@ import lmsfunctions as lms
 
 # for standalone products
 def generate_standalone_product(elective, elective_info, elective_duration,
-                                elective_name, instructor, instructor_info, instructor_banner, tz, st, et, timezonelist,
+                                elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
                                 course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle):
     try:
         standalone_content = f"""
         <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="" /></a></p>
         <p> </p>
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2024</span></p>
-        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{st} - {et} {tz} Time</span></p>
+        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{stet} Time</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;">{timezonelist} ET)</span></p>
         <p> </p>
         <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>2024 {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
@@ -38,18 +38,18 @@ def generate_standalone_product(elective, elective_info, elective_duration,
         """
         return standalone_content
     except Exception as e:
-        print(f"{cd}-{elective_name}: Problem - {e}")
+        print(f"Why did {cd}-{elective_name} have a problem generating a standalone product? -- {e}")
 
 # for 7+1 Products
 def generate_7_1_html(elective, elective_info, elective_duration,
-                      elective_name, instructor, instructor_info, instructor_banner, tz, st, et, timezonelist,
+                      elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
                       course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle):
     try:
         html_content = f"""
         <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{pageanchor}" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="{instructor} Banner" /></a></p>
         <p> </p>
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2024</span></p>
-        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{st} - {et} {tz} Time</span></p>
+        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{stet} Time</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;">{timezonelist}</span></p>
         <p> </p>
         <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>2024 7 + {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
@@ -77,7 +77,7 @@ def generate_7_1_html(elective, elective_info, elective_duration,
 
         return html_content
     except Exception as e:
-        print(f"{cd}-{elective}: Problem - {e}")
+        print(f"Why did {cd}-{elective} have an issue generating a 7+1 product? -- {e}")
 
 # these should be changed, definitely csv_file. you know, why make test products just make real ones and fix them if they're wrong lol
 csv_file = "csv/oh.csv"
@@ -110,6 +110,7 @@ def productCreator(csv_file):
                 tz = row['timezone']
                 st = row['start_time']
                 et = row['end_time']
+                stet = f"{st} - {et} {tz}"
                 timezonelist = f"({row['PT']} PT / {row['MT']} MT / {row['CT']} CT / {row['ET']} ET)"
 
                 # actual course info
@@ -121,6 +122,8 @@ def productCreator(csv_file):
                 # "backend type stuff"
                 productsku = f"{row['Month']}.{row['Day']}.24 - 7 + {elective_duration} {elective} CEQ"
                 pagetitle = f"{row['Month']}/{row['Day']} - 7 + {elective_duration} Hour {elective} CE Webinar"
+
+                # 'fullstate' is tbe column I'm using to determine if the product is a 7+1 or a standalone
                 fullstate = row['full']
 
                 # LMS assignments
@@ -129,10 +132,9 @@ def productCreator(csv_file):
                 if fullstate == 'y':
                     html_content = f""" """
                     html_content += generate_7_1_html(elective, elective_info, elective_duration,
-                                                      elective_name, instructor, instructor_info, instructor_banner, tz,
-                                                      st, et, timezonelist,
-                                                      course_number, course_url, cd, banking_fee, pageanchor,
-                                                      productsku, pagetitle)
+                                                      elective_name, instructor, instructor_info, instructor_banner,
+                                                      stet, timezonelist, course_number, course_url, cd, banking_fee,
+                                                      pageanchor, productsku, pagetitle)
 
                     html_content += fc.generateProductinfo(fullstate, elective, elective_duration, elective_name, cd,
                                                            st, tz, productsku, pagetitle, course_url)
@@ -143,7 +145,7 @@ def productCreator(csv_file):
                     standalone_content = f""" """
                     standalone_content += generate_standalone_product(elective, elective_info, elective_duration,
                                                                       elective_name, instructor, instructor_info,
-                                                                      instructor_banner, tz, st, et, timezonelist,
+                                                                      instructor_banner, stet, timezonelist,
                                                                       course_number, course_url, cd, banking_fee,
                                                                       pageanchor,
                                                                       productsku, pagetitle)
@@ -154,20 +156,39 @@ def productCreator(csv_file):
                     fc.outputProductDir(elective, instructor, cd, standalone_content)
 
             except Exception as e:
-                print(f"{cd}-{elective}: Problem - {e}")
+                print(f"""
+                Something is broken within the main loop of productGenerator - you messed up lol. ---
+                {cd} - {elective} - {e}
+                """)
 
             finally:
-                lms_content = f""" """
-                lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
-                                                            course_number, cd,
-                                                            instructor_fullname, instructor_image, instructor,
-                                                            pageanchor, st, et, tz,
-                                                            timezonelist)
+                try:
 
-                fc.outputLmsDir(cd, elective, lms_content)
+                  if lmsstate == 'y':
+                  # create the LMS course content
+                      lms_content = f""" """
+                      lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
+                                                                course_number, cd,
+                                                                instructor_fullname, instructor_image, instructor,
+                                                                pageanchor, st, et, tz,
+                                                                timezonelist)
+
+                      fc.outputLmsDir(cd, elective, lms_content)
+                  elif lmsstate == 'n':
+                      print("I think I need something to print here in order to keep the loop going. I'm not sure.")
+                except Exception as e:
+                    print(f"You broke the LMS part of productGenerator. Nice! -- {cd} - {elective} -- {e}")
 
 
+# this is calling the main to actually run
 productCreator(csv_file)
+
+
+
+
+
+
+
 
 # ################################################## old and unused these days because I'm a cool guy now
 # Example Usage

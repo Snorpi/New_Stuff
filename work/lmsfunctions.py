@@ -58,5 +58,5 @@ def generate_lms_description(course_title, elective_duration, elective_name, cou
         <p style="text-align: center;">  <strong>NMLS Course {course_number}<br /></strong><strong>NMLS Provider # 1400062 </strong>  </p>
         """
     except Exception as e:
-        print(f"lmsa-{cd}-{elective_name}: Problem - {e}")
+        print(f"You broke the LMS HTML ------ {cd}-{elective_name}  ---- {e}")
     return lms_content
