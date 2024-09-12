@@ -12,7 +12,7 @@ def generate_standalone_product(elective, elective_info, elective_duration,
         <p> </p>
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2024</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{stet} Time</span></p>
-        <p style="text-align: center;"><span style="font-size: 18pt;">{timezonelist} ET)</span></p>
+        <p style="text-align: center;"><span style="font-size: 18pt;">{timezonelist}</span></p>
         <p> </p>
         <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>2024 {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
         <p> </p>
@@ -79,10 +79,7 @@ def generate_7_1_html(elective, elective_info, elective_duration,
     except Exception as e:
         print(f"Why did {cd}-{elective} have an issue generating a 7+1 product? -- {e}")
 
-# these should be changed, definitely csv_file. you know, why make test products just make real ones and fix them if they're wrong lol
-csv_file = "csv/oh.csv"
-elective_file = "json/elective_data.json"
-instructor_file = "json/instructors.json"
+
 
 # this would be the main function i guess.
 def productCreator(csv_file):
@@ -107,6 +104,8 @@ def productCreator(csv_file):
                 pageanchor = instructor_info.get('pageanchor')
 
                 # course time information
+                month = row['month']
+                day = row['day']
                 tz = row['timezone']
                 st = row['start_time']
                 et = row['end_time']
@@ -115,13 +114,17 @@ def productCreator(csv_file):
 
                 # actual course info
                 course_number = elective_info.get('course_number')
-                course_url = f"{row['Month']}-{row['Day']}-24-{elective_duration}-{elective}-ceq"
+                course_url = f"{month}-{day}-24-{elective_duration}-{elective}-ceq"
                 cd = row['course_date']
                 banking_fee = int(elective_info.get('elective_duration')) * 1.50
 
-                # "backend type stuff"
-                productsku = f"{row['Month']}.{row['Day']}.24 - 7 + {elective_duration} {elective} CEQ"
-                pagetitle = f"{row['Month']}/{row['Day']} - 7 + {elective_duration} Hour {elective} CE Webinar"
+                # "standalone backend type stuff"
+                productsku = f"{month}.{day}.24 - {elective_duration} {elective} CEQ"
+                pagetitle = f"{month}/{day} - {elective_duration} Hour {elective} CE Webinar"
+
+                # "standalone backend type stuff"
+                fproductsku = f"{month}.{day}.24 - 7 + {elective_duration} {elective} CEQ"
+                fpagetitle = f"{month}/{day} - 7 + {elective_duration} Hour {elective} CE Webinar"
 
                 # 'fullstate' is tbe column I'm using to determine if the product is a 7+1 or a standalone
                 fullstate = row['full']
@@ -136,8 +139,8 @@ def productCreator(csv_file):
                                                       stet, timezonelist, course_number, course_url, cd, banking_fee,
                                                       pageanchor, productsku, pagetitle)
 
-                    html_content += fc.generateProductinfo(fullstate, elective, elective_duration, elective_name, cd,
-                                                           st, tz, productsku, pagetitle, course_url)
+                    html_content += fc.generateProductinfo_full(fullstate, elective, elective_duration, elective_name,
+                                                                cd, st, tz, productsku, pagetitle, course_url)
 
                     fc.outputProductDir(elective, instructor, cd, html_content)
 
@@ -149,18 +152,11 @@ def productCreator(csv_file):
                                                                       course_number, course_url, cd, banking_fee,
                                                                       pageanchor,
                                                                       productsku, pagetitle)
-                    standalone_content += fc.generateProductinfo(fullstate, elective, elective_duration, elective_name,
-                                                                 cd,
-                                                                 st, tz, productsku, pagetitle, course_url)
+                    standalone_content += fc.generateProductinfo_full(fullstate, elective, elective_duration,
+                                                                      elective_name, cd, st, tz, productsku, pagetitle,
+                                                                      course_url)
 
                     fc.outputProductDir(elective, instructor, cd, standalone_content)
-
-            except Exception as e:
-                print(f"""
-                Something is broken within the main loop of productGenerator - you messed up lol. ---
-                {cd} - {elective} - {e}
-                """)
-
             finally:
                 try:
 
@@ -170,7 +166,7 @@ def productCreator(csv_file):
                       lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
                                                                 course_number, cd,
                                                                 instructor_fullname, instructor_image, instructor,
-                                                                pageanchor, st, et, tz,
+                                                                pageanchor, stet,
                                                                 timezonelist)
 
                       fc.outputLmsDir(cd, elective, lms_content)
@@ -178,6 +174,13 @@ def productCreator(csv_file):
                       print("I think I need something to print here in order to keep the loop going. I'm not sure.")
                 except Exception as e:
                     print(f"You broke the LMS part of productGenerator. Nice! -- {cd} - {elective} -- {e}")
+
+
+
+# these should be changed, definitely csv_file. you know, why make test products just make real ones and fix them if they're wrong lol
+csv_file = "csv/oop.csv"
+elective_file = "json/elective_data.json"
+instructor_file = "json/instructors.json"
 
 
 # this is calling the main to actually run

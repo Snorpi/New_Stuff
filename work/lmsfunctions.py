@@ -19,9 +19,26 @@ def generateCertificateinfo(elective_duration, elective_name, course_number, cou
         -->"""
     return cert_html
 
+
+def generateCoreInfo(main_seventime, seven_timezones):
+    core_html = f"""
+    <p style="text-align: center;"> </p>
+    <p style="text-align: center;"><span style="font-size: 14pt;"><strong>7 Hour CORE </strong></span></p>
+    <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{main_seventime}</strong></span></p>
+    <p style="text-align: center;"><span style="font-size: 10pt;">{seven_timezones}</span></p>
+    <p style="text-align: center;"> </p>
+    <p style="text-align: center;"><img src="https://mortgageeducators.com/images/webinar/Webcam_Required_Banner.png" alt="" /></p>
+    <p style="text-align: center;"><strong><span style="font-size: 10pt;"><strong style="font-weight: 600;">This course has been approved by the NMLS to fulfill the 7 hours of Continuing Education requirement for general hours outlined in the SAFE Act for mortgage loan originators and brokers. </strong> </span><span style="font-size: 10pt;">Per NMLS requirements, all webinar attendees are required to have a webcam enabled for the entire duration of all webinars for NMLS credit.</span></strong></p>
+    <p style="text-align: center;">  <strong>NMLS Course #15898<br /></strong><strong>NMLS Provider # 1400062 </strong>  </p>
+    """
+    return core_html
+
+
+
+
 # generates lms description and whatnot
 def generate_lms_description(course_title, elective_duration, elective_name, course_number, cd,
-                             instructor_fullname, instructor_image, instructor, pageanchor, st, et, tz, timezonelist):
+                             instructor_fullname, instructor_image, instructor, pageanchor, stet, timezonelist):
     try:
         lms_content = f"""
         <!-- Course Title -->
@@ -49,7 +66,7 @@ def generate_lms_description(course_title, elective_duration, elective_name, cou
         <a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{pageanchor}" target="_blank" rel="noopener noreferrer">{instructor_fullname}</a></strong></span></p>
         <p> </p>
         <p style="text-align: center;"><span style="font-size: 14pt;"><strong>{elective_duration} Hour {elective_name} Elective</strong></span></p>
-        <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{st} - {et} {tz} Time</strong></span></p>
+        <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{stet} Time</strong></span></p>
         <p style="text-align: center;"><span style="font-size: 10pt;">{timezonelist}</span></p>
         <p> </p>
         <p style="text-align: center;"><img src="https://mortgageeducators.com/images/webinar/Webcam_Required_Banner.png" alt="" /></p>

@@ -20,7 +20,7 @@ def load_instructor_data(file_path):
 # outputs product descriptions to their directory
 def outputProductDir(elective, instructor, cd, html_content):
     output_dir = "C:\\Users\\tbone\\PycharmProjects\\MyNewMainStuff\\work\\productDescriptions"
-    filename = os.path.join(output_dir, f"{elective}-{instructor}-{cd}.html")
+    filename = os.path.join(output_dir, f"{cd}-{elective}-{instructor}.html")
 
     with open(filename, 'a', encoding='utf-8') as output_file:
         output_file.write(html_content)
@@ -61,17 +61,18 @@ def generate_7hr_html():
 
 
 # generates the product title, sku, url, html link, page title, etc, for products.
-def generateProductinfo(fullstate, elective, elective_duration, elective_name, cd, st, tz, productsku, pagetitle,
+def generateProductinfo_full(fullstate, elective, elective_duration, elective_name, cd, st, tz, productsku, pagetitle,
                         course_url):
     try:
         if fullstate == 'y':
+            productinformation = f""""""
             productinformation = f"""
-            <!-- 2024 7 + {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
-            <!-- {productsku} -->
-            <!-- {course_url} -->
-            <!-- {pagetitle} -->
+            2024 7 + {elective_duration} Hour {elective_name} CE Webinar {cd} {st} {tz}
+            {productsku}
+            {course_url}
+            {pagetitle}
             <!-- asana info -->
-            <!-- {elective_duration}Hr {elective} 
+            {elective_duration}Hr {elective} 
             <h2 style="text-align: center">
             <a
             title="7 + {elective_duration} Hour {elective_name} CE Webinar - {cd}"
@@ -82,15 +83,17 @@ def generateProductinfo(fullstate, elective, elective_duration, elective_name, c
             >
             </h2>
         """
+            return productinformation
 
         if fullstate == 'n':
+            productinformation = f""""""
             productinformation = f"""
-            <!-- 2024 {elective_duration} Hour {elective_name} CE Webinar {cd}, 2024 {st} {tz} -->
-            <!-- {productsku} -->
-            <!-- {course_url} -->
-            <!-- {pagetitle} -->
+            2024 {elective_duration} Hour {elective_name} CE Webinar {cd} {st} {tz}
+            {productsku}
+            {course_url}
+            {pagetitle}
             <!-- asana info -->
-            <!-- {elective_duration}Hr {elective} 
+            {elective_duration}Hr {elective} 
             <h2 style="text-align: center">
             <a
             title="{elective_duration} Hour {elective_name} CE Webinar - {cd}"
@@ -101,6 +104,6 @@ def generateProductinfo(fullstate, elective, elective_duration, elective_name, c
             >
             </h2>
             """
+            return productinformation
     except Exception as e:
         print(f"How did you mess up generating the product information for {pagetitle}??  -- {e}")
-    return productinformation
