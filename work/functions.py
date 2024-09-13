@@ -62,7 +62,7 @@ def generate_7hr_html():
 
 # generates the product title, sku, url, html link, page title, etc, for products.
 def generateProductinfo_full(fullstate, elective, elective_duration, elective_name, cd, st, tz, productsku, pagetitle,
-                        course_url):
+                        course_url, errorinfo):
     try:
         if fullstate == 'y':
             productinformation = f""""""

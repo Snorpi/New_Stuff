@@ -2,10 +2,11 @@ import csv
 import functions as fc
 import lmsfunctions as lms
 
+
 # for standalone products
 def generate_standalone_product(elective, elective_info, elective_duration,
                                 elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
-                                course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle):
+                                course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle, errorinfo):
     try:
         standalone_content = f"""
         <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="" /></a></p>
@@ -38,12 +39,13 @@ def generate_standalone_product(elective, elective_info, elective_duration,
         """
         return standalone_content
     except Exception as e:
-        print(f"Why did {cd}-{elective_name} have a problem generating a standalone product? -- {e}")
+        print(f"Problem generating a standalone product? {errorinfo} {e}")
+
 
 # for 7+1 Products
 def generate_7_1_html(elective, elective_info, elective_duration,
                       elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
-                      course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle):
+                      course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle, errorinfo):
     try:
         html_content = f"""
         <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{pageanchor}" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="{instructor} Banner" /></a></p>
@@ -77,8 +79,7 @@ def generate_7_1_html(elective, elective_info, elective_duration,
 
         return html_content
     except Exception as e:
-        print(f"Why did {cd}-{elective} have an issue generating a 7+1 product? -- {e}")
-
+        print(f"You fked a 7+1 product up --  {errorinfo} {e}")
 
 
 # this would be the main function i guess.
@@ -86,61 +87,68 @@ def productCreator(csv_file):
     elective_data = fc.load_elective_data(elective_file)
     instructor_data = fc.load_instructor_data(instructor_file)
 
+
+
     with (open(csv_file, 'r') as csvfile):
         reader = csv.DictReader(csvfile)
         for row in reader:
+            # elective information
+            elective = row['elective']
+            elective_info = elective_data.get(elective, {})
+            elective_duration = elective_info.get('elective_duration', 0)
+            elective_name = elective_info.get('elective_name')
+
+            # instructor data
+            instructor = row['instructor']
+            instructor_info = instructor_data.get(instructor, {})
+            instructor_banner = instructor_info.get('bannerlink')
+            instructor_fullname = f"{instructor_info.get('fname')} {instructor_info.get('lname')}"
+            pageanchor = instructor_info.get('pageanchor')
+
+            # course time information
+            month = row['month']
+            day = row['day']
+            tz = row['timezone']
+            st = row['start_time']
+            et = row['end_time']
+            stet = f"{st} - {et} {tz}"
+            timezonelist = f"({row['PT']} PT / {row['MT']} MT / {row['CT']} CT / {row['ET']} ET)"
+
+            # actual course info
+            course_number = elective_info.get('course_number')
+            course_url = f"{month}-{day}-24-{elective_duration}-{elective}-ceq"
+            cd = row['course_date']
+            banking_fee = int(elective_info.get('elective_duration')) * 1.50
+
+            # "standalone backend type stuff"
+            productsku = f"{month}.{day}.24 - {elective_duration} {elective} CEQ"
+            pagetitle = f"{month}/{day} - {elective_duration} Hour {elective} CE Webinar"
+
+            # "standalone backend type stuff"
+            fproductsku = f"{month}.{day}.24 - {elective_duration} {elective} CEQ"
+            fpagetitle = f"{month}/{day} - {elective_duration} Hour {elective} CE Webinar"
+
+            # 'fullstate' is tbe column I'm using to determine if the product is a 7+1 or a standalone
+            fullstate = row['full']
+            lmsstate = row['lmsstate']
+            errorinfo = f"{cd} {elective_name} -- "
+
+            # LMS assignments
+            course_title = f"Webinar {elective_duration} Hour {elective_name} Elective CE {course_number} {cd}, 2024 {st} {tz}"
+            instructor_image = instructor_info.get('lmslink')
+
             try:
-                # elective information
-                elective = row['elective']
-                elective_info = elective_data.get(elective, {})
-                elective_duration = elective_info.get('elective_duration', 0)
-                elective_name = elective_info.get('elective_name')
 
-                # instructor data
-                instructor = row['instructor']
-                instructor_info = instructor_data.get(instructor, {})
-                instructor_banner = instructor_info.get('bannerlink')
-                instructor_fullname = f"{instructor_info.get('fname')} {instructor_info.get('lname')}"
-                pageanchor = instructor_info.get('pageanchor')
-
-                # course time information
-                month = row['month']
-                day = row['day']
-                tz = row['timezone']
-                st = row['start_time']
-                et = row['end_time']
-                stet = f"{st} - {et} {tz}"
-                timezonelist = f"({row['PT']} PT / {row['MT']} MT / {row['CT']} CT / {row['ET']} ET)"
-
-                # actual course info
-                course_number = elective_info.get('course_number')
-                course_url = f"{month}-{day}-24-{elective_duration}-{elective}-ceq"
-                cd = row['course_date']
-                banking_fee = int(elective_info.get('elective_duration')) * 1.50
-
-                # "standalone backend type stuff"
-                productsku = f"{month}.{day}.24 - {elective_duration} {elective} CEQ"
-                pagetitle = f"{month}/{day} - {elective_duration} Hour {elective} CE Webinar"
-
-                # "standalone backend type stuff"
-                fproductsku = f"{month}.{day}.24 - 7 + {elective_duration} {elective} CEQ"
-                fpagetitle = f"{month}/{day} - 7 + {elective_duration} Hour {elective} CE Webinar"
-
-                # 'fullstate' is tbe column I'm using to determine if the product is a 7+1 or a standalone
-                fullstate = row['full']
-
-                # LMS assignments
-                course_title = f"Webinar {elective_duration} Hour {elective_name} Elective CE {course_number} {cd}, 2024 {st} {tz}"
-                instructor_image = instructor_info.get('lmslink')
                 if fullstate == 'y':
                     html_content = f""" """
                     html_content += generate_7_1_html(elective, elective_info, elective_duration,
                                                       elective_name, instructor, instructor_info, instructor_banner,
                                                       stet, timezonelist, course_number, course_url, cd, banking_fee,
-                                                      pageanchor, productsku, pagetitle)
+                                                      pageanchor, productsku, pagetitle, errorinfo)
 
                     html_content += fc.generateProductinfo_full(fullstate, elective, elective_duration, elective_name,
-                                                                cd, st, tz, productsku, pagetitle, course_url)
+                                                                cd, st, tz, productsku, pagetitle, course_url,
+                                                                errorinfo)
 
                     fc.outputProductDir(elective, instructor, cd, html_content)
 
@@ -151,47 +159,38 @@ def productCreator(csv_file):
                                                                       instructor_banner, stet, timezonelist,
                                                                       course_number, course_url, cd, banking_fee,
                                                                       pageanchor,
-                                                                      productsku, pagetitle)
+                                                                      productsku, pagetitle, errorinfo)
                     standalone_content += fc.generateProductinfo_full(fullstate, elective, elective_duration,
                                                                       elective_name, cd, st, tz, productsku, pagetitle,
-                                                                      course_url)
+                                                                      course_url, errorinfo)
 
                     fc.outputProductDir(elective, instructor, cd, standalone_content)
             finally:
                 try:
 
-                  if lmsstate == 'y':
-                  # create the LMS course content
-                      lms_content = f""" """
-                      lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
-                                                                course_number, cd,
-                                                                instructor_fullname, instructor_image, instructor,
-                                                                pageanchor, stet,
-                                                                timezonelist)
+                    if lmsstate == 'y':
+                        # create the LMS course content
+                        lms_content = f""" """
+                        lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
+                                                                    course_number, cd,
+                                                                    instructor_fullname, instructor_image, instructor,
+                                                                    pageanchor, stet,
+                                                                    timezonelist, st, errorinfo)
 
-                      fc.outputLmsDir(cd, elective, lms_content)
-                  elif lmsstate == 'n':
-                      print("I think I need something to print here in order to keep the loop going. I'm not sure.")
+                        fc.outputLmsDir(cd, elective, lms_content)
+                    elif lmsstate == 'n':
+                        print("I think I need something to print here in order to keep the loop going. I'm not sure.")
                 except Exception as e:
-                    print(f"You broke the LMS part of productGenerator. Nice! -- {cd} - {elective} -- {e}")
-
+                    print(f"You broke the LMS part of productGenerator. Nice! -- {errorinfo} {e}")
 
 
 # these should be changed, definitely csv_file. you know, why make test products just make real ones and fix them if they're wrong lol
-csv_file = "csv/oop.csv"
+csv_file = "csv/ohman.csv"
 elective_file = "json/elective_data.json"
 instructor_file = "json/instructors.json"
 
-
 # this is calling the main to actually run
 productCreator(csv_file)
-
-
-
-
-
-
-
 
 # ################################################## old and unused these days because I'm a cool guy now
 # Example Usage

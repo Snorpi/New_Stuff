@@ -1,3 +1,5 @@
+import timefunctions as tf
+
 
 # generates lms course certificate information
 def generateCertificateinfo(elective_duration, elective_name, course_number, course_date):
@@ -20,25 +22,100 @@ def generateCertificateinfo(elective_duration, elective_name, course_number, cou
     return cert_html
 
 
-def generateCoreInfo(main_seventime, seven_timezones):
+def generateFinalText(elective_duration, course_number, elective_name):
     core_html = f"""
-    <p style="text-align: center;"> </p>
-    <p style="text-align: center;"><span style="font-size: 14pt;"><strong>7 Hour CORE </strong></span></p>
-    <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{main_seventime}</strong></span></p>
-    <p style="text-align: center;"><span style="font-size: 10pt;">{seven_timezones}</span></p>
-    <p style="text-align: center;"> </p>
-    <p style="text-align: center;"><img src="https://mortgageeducators.com/images/webinar/Webcam_Required_Banner.png" alt="" /></p>
-    <p style="text-align: center;"><strong><span style="font-size: 10pt;"><strong style="font-weight: 600;">This course has been approved by the NMLS to fulfill the 7 hours of Continuing Education requirement for general hours outlined in the SAFE Act for mortgage loan originators and brokers. </strong> </span><span style="font-size: 10pt;">Per NMLS requirements, all webinar attendees are required to have a webcam enabled for the entire duration of all webinars for NMLS credit.</span></strong></p>
-    <p style="text-align: center;">  <strong>NMLS Course #15898<br /></strong><strong>NMLS Provider # 1400062 </strong>  </p>
+        <p> </p>
+        <p style="text-align: center;"><img src="https://mortgageeducators.com/images/webinar/Webcam_Required_Banner.png" alt="" /></p>
+        <p style="text-align: center;"><strong><span style="font-size: 10pt;">This course has been approved by the NMLS to fulfill the {elective_duration} hour of Continuing Education requirement for {elective_name} outlined in the SAFE Act for mortgage loan originators and brokers. </span>
+        <span style="font-size: 10pt;">Per NMLS requirements, all webinar attendees are required to have a webcam enabled for the entire duration of all webinars for NMLS credit.</span></strong></p>
+        <p style="text-align: center;">  <strong>NMLS Course {course_number}<br /></strong><strong>NMLS Provider # 1400062 </strong>  </p>
     """
     return core_html
 
+def generateInstructorInfo(instructor_image, instructor, pageanchor, instructor_fullname, errorinfo):
+    instructor_html = f""""""
+    try:
+        instructor_html += f"""
+        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_image}" alt="" /></p>
+        <p style="text-align: center;">
+        <span style="font-size: 24pt;"><strong>
+        <a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{pageanchor}" target="_blank" rel="noopener noreferrer">{instructor_fullname}</a></strong></span></p>
+        <p> </p>"""
+    except Exception as e:
+        print(f"You broke the instructor HTML for the LMS LOL - {errorinfo} -- {e}")
+    return instructor_html
 
 
+def generateTopInfo(elective_duration, elective_name, cd, fullstate, errorinfo):
+    try:
+        toptable = f""""""
+
+        if fullstate == 'n':
+
+            toptable += f"""
+            <!-- Top Information -->
+            <table width="80%" align="center">
+            <tbody>
+            <tr>
+            <td>
+            <h1 style="font-weight: 600; text-align: center;">2024 Live WEBINAR<br /> NMLS {elective_duration} Hour {elective_name} Continuing Education Course</h1>
+            <h1 style="font-weight: 600; text-align: center;">{cd}, 2024</h1>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            """
+
+        if fullstate == 'y':
+            toptable += f""" 
+            <!-- Top Information -->
+            <table width="80%" align="center">
+            <tbody>
+            <tr>
+            <td>
+            <h1 style="font-weight: 600; text-align: center;">2024 Live WEBINAR<br /> NMLS {elective_duration} Hour {elective_name} Continuing Education Course</h1>
+            <h1 style="font-weight: 600; text-align: center;">{cd}, 2024</h1>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            """
+        return toptable
+    except Exception as e:
+        print(f"Somewhere in the LMS top table seems to have broken. -- {errorinfo} {e}")
+
+def generateBotInfo(elective_duration, elective_name, cd, fullstate, errorinfo):
+    try:
+        bottomtable = f""""""
+
+        if fullstate == 'n':
+
+            bottomtable += f"""
+            <p style="text-align: center;"><span style="font-size: 14pt;"><strong>{elective_duration} Hour {elective_name} Elective</strong></span></p>
+            <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{stet} Time</strong></span></p>
+            <p style="text-align: center;"><span style="font-size: 10pt;">{timezonelist}</span></p>
+            <p style="text-align: center;"> </p>
+            """
+
+        if fullstate == 'y':
+            bottomtable += f""" 
+            <p style="text-align: center;"><span style="font-size: 14pt;"><strong>{elective_duration} Hour {elective_name} Elective</strong></span></p>
+            <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{stet} Time</strong></span></p>
+            <p style="text-align: center;"><span style="font-size: 10pt;">{timezonelist}</span></p>
+            <p style="text-align: center;"> </p>
+            <p style="text-align: center;"><span style="font-size: 14pt;"><strong>7 Hour CORE </strong></span></p>
+            <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{main_seventime}</strong></span></p>
+            <p style="text-align: center;"><span style="font-size: 10pt;">{seven_timezones}</span></p>
+            <p style="text-align: center;"> </p>
+            """
+        return bottomtable
+    except Exception as e:
+        print(f"Somewhere in the LMS bottom table seems to have broken. -- {errorinfo} {e}")
 
 # generates lms description and whatnot
 def generate_lms_description(course_title, elective_duration, elective_name, course_number, cd,
-                             instructor_fullname, instructor_image, instructor, pageanchor, stet, timezonelist):
+                             instructor_fullname, instructor_image, instructor, pageanchor, stet, timezonelist,
+                             start_time, errorinfo):
     try:
         lms_content = f"""
         <!-- Course Title -->
@@ -47,33 +124,16 @@ def generate_lms_description(course_title, elective_duration, elective_name, cou
 
         lms_content += generateCertificateinfo(elective_duration, elective_name, course_number, cd)
 
-        lms_content += f"""<!-- Top Information -->
-        <table width="80%" align="center">
-        <tbody>
-        <tr>
-        <td>
-        <h1 style="font-weight: 600; text-align: center;">2024 Live WEBINAR<br /> NMLS {elective_duration} Hour {elective_name} Continuing Education Course</h1>
-        <h1 style="font-weight: 600; text-align: center;">{cd}, 2024</h1>
-        </td>
-        </tr>
-        </tbody>
-        </table>
+        lms_content += generateTopInfo(elective_duration, cd, elective_name)
 
-        <!-- Bottom Information -->
-        <p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_image}" alt="" /></p>
-        <p style="text-align: center;">
-        <span style="font-size: 24pt;"><strong>
-        <a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{pageanchor}" target="_blank" rel="noopener noreferrer">{instructor_fullname}</a></strong></span></p>
-        <p> </p>
-        <p style="text-align: center;"><span style="font-size: 14pt;"><strong>{elective_duration} Hour {elective_name} Elective</strong></span></p>
-        <p style="text-align: center;"><span style="font-size: 12pt;"><strong>{stet} Time</strong></span></p>
-        <p style="text-align: center;"><span style="font-size: 10pt;">{timezonelist}</span></p>
-        <p> </p>
-        <p style="text-align: center;"><img src="https://mortgageeducators.com/images/webinar/Webcam_Required_Banner.png" alt="" /></p>
-        <p style="text-align: center;"><strong><span style="font-size: 10pt;">This course has been approved by the NMLS to fulfill the {elective_duration} hour of Continuing Education requirement for {elective_name} outlined in the SAFE Act for mortgage loan originators and brokers. </span>
-        <span style="font-size: 10pt;">Per NMLS requirements, all webinar attendees are required to have a webcam enabled for the entire duration of all webinars for NMLS credit.</span></strong></p>
-        <p style="text-align: center;">  <strong>NMLS Course {course_number}<br /></strong><strong>NMLS Provider # 1400062 </strong>  </p>
-        """
+        lms_content += generateInstructorInfo(instructor_image, instructor, instructor_fullname, pageanchor)
+
+        # lms_content +=
+
+        lms_content += tf.generateCourseTimes(start_time)
+
+        lms_content += generateFinalText(elective_duration, elective_name, course_number
+                                         )
     except Exception as e:
-        print(f"You broke the LMS HTML ------ {cd}-{elective_name}  ---- {e}")
+        print(f"You broke the LMS HTML ------ {errorinfo} {e}")
     return lms_content

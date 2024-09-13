@@ -1,34 +1,37 @@
 import datetime
-import csv
 
-csv_file = "csv/oh.csv"
 
-# Define time zone offsets as timedelta objects
-pt_offset = datetime.timedelta(hours=-1)
-mt_offset = datetime.timedelta(hours=0)
-ct_offset = datetime.timedelta(hours=1)
-et_offset = datetime.timedelta(hours=2)
+# offsetting because I want to list everything in my csv in mt
+def generateCourseTimes(st):
+    pt_offset = datetime.timedelta(hours=-1)
+    mt_offset = datetime.timedelta(hours=0)
+    ct_offset = datetime.timedelta(hours=+1)
+    et_offset = datetime.timedelta(hours=+2)
+    sevenhr_offset = datetime.timedelta(hours=+1)
 
-with open(csv_file, 'r') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        try:
-            # Parse the start time, handling potential exceptions
-            start_time_str = row['start_time'].strip()  # Remove leading/trailing spaces
-            start_time = datetime.datetime.strptime(start_time_str, '%H:%M').time()
+    try:
+        start_time_str = st.strip()
+        st = datetime.datetime.strptime(start_time_str, '%H:%M').time()
 
-            # Convert to datetime with a dummy date
-            start_datetime = datetime.datetime.combine(datetime.date.today(), start_time)
+        start_datetime = datetime.datetime.combine(datetime.date.today(), st)
 
-            # Calculate time for each time zone using offsets
-            pacific_time = (start_datetime + pt_offset).strftime('%I:%M %p')
-            mountain_time = (start_datetime + mt_offset).strftime('%I:%M %p')
-            central_time = (start_datetime + ct_offset).strftime('%I:%M %p')
-            eastern_time = (start_datetime + et_offset).strftime('%I:%M %p')
+        pacific_time = (start_datetime + pt_offset).strftime('%I:%M %p').lstrip('0')
+        mountain_time = (start_datetime + mt_offset).strftime('%I:%M %p').lstrip('0')
+        central_time = (start_datetime + ct_offset).strftime('%I:%M %p').lstrip('0')
+        eastern_time = (start_datetime + et_offset).strftime('%I:%M %p').lstrip('0')
+        sevenhr_offset = (start_datetime + sevenhr_offset).strftime('%I:%M %p').lstrip('0')
 
-            everything = f"{pacific_time} {mountain_time} {central_time} {eastern_time}"
-            print(f'lol {everything}')
-        except ValueError as e:
-            print(f"Error parsing start time: {e}")
-        except Exception as e:
-            print(f"Unexpected error: {e}")
+        elective_timezones = f"""
+        <p style="text-align: center;"><span style="font-size: 10pt;">
+        ({pacific_time} PT / {mountain_time} MT / {central_time} CT / {eastern_time} ET)
+        </span></p>
+        """
+
+    except ValueError as e:
+        print(f"You fucked up this part lol: {e}")
+
+    return elective_timezones
+
+# Takes 9:00
+# Returns (8:00 AM PT / 9:00 AM MT / 10:00 AM CT / 11:00 AM ET)
+
