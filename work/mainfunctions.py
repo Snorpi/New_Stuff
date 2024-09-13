@@ -6,7 +6,8 @@ import lmsfunctions as lms
 # for standalone products
 def generate_standalone_product(elective, elective_info, elective_duration,
                                 elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
-                                course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle, errorinfo):
+                                course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle,
+                                errorinfo):
     try:
         standalone_content = f"""
         <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="" /></a></p>
@@ -47,6 +48,7 @@ def generate_7_1_html(elective, elective_info, elective_duration,
                       elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
                       course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle, errorinfo):
     try:
+        fbankingfee = banking_fee + 10.50
         html_content = f"""
         <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{pageanchor}" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="{instructor} Banner" /></a></p>
         <p> </p>
@@ -54,7 +56,7 @@ def generate_7_1_html(elective, elective_info, elective_duration,
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{stet} Time</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;">{timezonelist}</span></p>
         <p> </p>
-        <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>2024 7 + {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
+        <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>UWM - 2024 7 + {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
         <p> </p>
         <p style="text-align: center;"><span style="font-size: 14pt;">  This course fulfills the 7 + {elective_duration} Hour {elective_name} NMLS mortgage continuing education requirement for 2024 in a live webinar format. </span></p>
         <p> </p>
@@ -68,9 +70,8 @@ def generate_7_1_html(elective, elective_info, elective_duration,
         html_content += fc.generate_chapter_html(elective_info.get('chapters', []))
         html_content += fc.generate_7hr_html()
         html_content += f"""
-        <p style="text-align: left;"> </p>`
         <p><span style="font-size: 12pt;"><strong>***This live webinar course includes only the 7 + {elective_duration} hours of {elective_name} CE material. If you need additional state education, those can be found <a href="https://mortgageeducators.com/articles?id=751" target="_blank" rel="noopener noreferrer">HERE</a> in an online format***</strong></span></p>
-        <p style="text-align: left;"><span style="font-size: 12pt;">Includes the ${banking_fee}0 NMLS banking fee. </span></p>
+        <p style="text-align: left;"><span style="font-size: 12pt;">Includes the ${fbankingfee}0 NMLS banking fee. </span></p>
         <p style="text-align: left;"><span style="font-size: 12pt;">This course is in a live webinar format and requires the student to be active and pay attention the entire time. Control measures will be taken to ensure   
          participation. </span></p>
         <p style="text-align: left;"><span style="font-size: 12pt;">Questions: <a href="mailto:webinar@MortgageEducators.com">webinars@MortgageEducators.com</a></span></p>
@@ -86,8 +87,6 @@ def generate_7_1_html(elective, elective_info, elective_duration,
 def productCreator(csv_file):
     elective_data = fc.load_elective_data(elective_file)
     instructor_data = fc.load_instructor_data(instructor_file)
-
-
 
     with (open(csv_file, 'r') as csvfile):
         reader = csv.DictReader(csvfile)
@@ -114,6 +113,7 @@ def productCreator(csv_file):
             stet = f"{st} - {et} {tz}"
             timezonelist = f"({row['PT']} PT / {row['MT']} MT / {row['CT']} CT / {row['ET']} ET)"
 
+
             # actual course info
             course_number = elective_info.get('course_number')
             course_url = f"{month}-{day}-24-{elective_duration}-{elective}-ceq"
@@ -125,8 +125,8 @@ def productCreator(csv_file):
             pagetitle = f"{month}/{day} - {elective_duration} Hour {elective} CE Webinar"
 
             # "standalone backend type stuff"
-            fproductsku = f"{month}.{day}.24 - {elective_duration} {elective} CEQ"
-            fpagetitle = f"{month}/{day} - {elective_duration} Hour {elective} CE Webinar"
+            fproductsku = f"{month}.{day}.24 - 7 + {elective_duration} {elective} CEQ"
+            fpagetitle = f"{month}/{day} - 7 + {elective_duration} Hour {elective} CE Webinar"
 
             # 'fullstate' is tbe column I'm using to determine if the product is a 7+1 or a standalone
             fullstate = row['full']
@@ -141,30 +141,31 @@ def productCreator(csv_file):
 
                 if fullstate == 'y':
                     html_content = f""" """
+                    html_content += fc.generateProductinfo_full(fullstate, elective, elective_duration, elective_name,
+                                                                cd, st, tz, productsku, pagetitle, course_url,
+                                                                errorinfo, fproductsku, fpagetitle)
                     html_content += generate_7_1_html(elective, elective_info, elective_duration,
                                                       elective_name, instructor, instructor_info, instructor_banner,
                                                       stet, timezonelist, course_number, course_url, cd, banking_fee,
                                                       pageanchor, productsku, pagetitle, errorinfo)
 
-                    html_content += fc.generateProductinfo_full(fullstate, elective, elective_duration, elective_name,
-                                                                cd, st, tz, productsku, pagetitle, course_url,
-                                                                errorinfo)
-
-                    fc.outputProductDir(elective, instructor, cd, html_content)
+                    fc.outputProductDir(elective, fullstate, month, day, html_content)
 
                 elif fullstate == 'n':
                     standalone_content = f""" """
+                    standalone_content += fc.generateProductinfo_full(fullstate, elective, elective_duration,
+                                                                      elective_name, cd, st, tz, productsku, pagetitle,
+                                                                      course_url, errorinfo, fproductsku, fpagetitle)
+
                     standalone_content += generate_standalone_product(elective, elective_info, elective_duration,
                                                                       elective_name, instructor, instructor_info,
                                                                       instructor_banner, stet, timezonelist,
                                                                       course_number, course_url, cd, banking_fee,
                                                                       pageanchor,
                                                                       productsku, pagetitle, errorinfo)
-                    standalone_content += fc.generateProductinfo_full(fullstate, elective, elective_duration,
-                                                                      elective_name, cd, st, tz, productsku, pagetitle,
-                                                                      course_url, errorinfo)
 
-                    fc.outputProductDir(elective, instructor, cd, standalone_content)
+
+                    fc.outputProductDir(elective, fullstate, month, day, standalone_content)
             finally:
                 try:
 
