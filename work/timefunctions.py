@@ -28,7 +28,7 @@ def generateCourseTimes(st):
         """
 
     except ValueError as e:
-        print(f"You fucked up this part lol: {e}")
+        print(f"You broke eomething in TIME functions: {e}")
 
     return elective_timezones
 
