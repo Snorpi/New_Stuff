@@ -80,7 +80,7 @@ def generate_7_1_html(elective, elective_info, elective_duration,
 
         return html_content
     except Exception as e:
-        print(f"You fked a 7+1 product up --  {errorinfo} {e}")
+        print(f"You broke a 7+1 product --  {errorinfo} {e}")
 
 
 # this would be the main function i guess.
