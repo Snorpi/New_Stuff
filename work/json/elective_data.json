@@ -1,34 +1,34 @@
 {
   "AZ": {
     "elective_name": "Arizona",
-    "course_number": "#15919",
+    "course_number": "#185009",
     "elective_duration": "1",
     "chapters": [
-      "Affordable Housing: HUD Grants and FHA Annual MIP Updates",
+      "Prohibited Acts & Penalties",
       "AZ DIFI Enforcement Action Case Studies: A Focus on Fraud"
     ]
   },
   "CA-DFPI": {
     "elective_name": "CA-DFPI",
-    "course_number": "#15895",
+    "course_number": "#18502",
     "elective_duration": "1",
     "chapters": [
-      "The California Consumer Financial Protection Law - Year 2",
+      "The California Consumer Financial Protection Law: Year 4",
       "Recent DFPI Enforcement Actions"
     ]
   },
   "FL": {
-    "elective_name": "Florida",
+    "elective_name": "18505",
     "course_number": "#15911",
     "elective_duration": "1",
     "chapters": [
       "Required Florida Topics",
-      "Affordable Housing: HUD Grants and FHA Annual MIP Updates"
+      "Prohibited Acts & Florida Enforcement Actions"
     ]
   },
   "Gen": {
     "elective_name": "General Elective",
-    "course_number": "#15889",
+    "course_number": "#18496",
     "elective_duration": "1",
     "chapters": [
       "Self-Employment Income",
@@ -175,7 +175,7 @@
   },
   "7hr": {
     "elective_name": "Core",
-    "course_number": "#15898",
+    "course_number": "#18498",
     "elective_duration": "7",
     "chapters": [
       ""

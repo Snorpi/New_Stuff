@@ -19,7 +19,7 @@ def yoinkGame():
 
 
 root = tk.Tk()
-root.title('Tristan Can\'t Pick A Fucking Game')
+root.title('Tristan Can\'t Pick A Game')
 
 root.geometry('400x200')
 root.update_idletasks()

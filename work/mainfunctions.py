@@ -5,20 +5,18 @@ import lmsfunctions as lms
 
 # for standalone products
 def generate_standalone_product(elective, elective_info, elective_duration,
-                                elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
-                                course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle,
+                                elective_name, stet, timezonelist,
+                                course_number, course_url, cd, banking_fee, productsku, pagetitle,
                                 errorinfo):
     try:
         standalone_content = f"""
-        <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="" /></a></p>
-        <p> </p>
-        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2024</span></p>
+        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2026</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{stet} Time</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;">{timezonelist}</span></p>
         <p> </p>
-        <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>2024 {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
+        <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>2026 {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
         <p> </p>
-        <p style="text-align: center;"><span style="font-size: 14pt;">  This course fulfills the {elective_duration} Hour {elective_name} NMLS mortgage continuing education requirement for 2024 in a live webinar format. </span></p>
+        <p style="text-align: center;"><span style="font-size: 14pt;">  This course fulfills the {elective_duration} Hour {elective_name} NMLS mortgage continuing education requirement for 2026 in a live webinar format. </span></p>
         <p> </p>
         <p><a title="NMLS Webcam Requirement" href="https://nationwidelicensingsystem.org/courseprovider/Course%Provider%Resources/Functional%Specification%for%All%NMLS%Approved%Courses.pdf#page=27" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" title="NMLS Webcam Requirement" src="https://mortgageeducators.com/images/00TemplateImages/webcam4.png" alt="Webcam Required, Per NMLS as of June 6th, 2022." width="652" height="129" /></a></p>
         <p style="text-align: left;"><span style="text-decoration: underline; font-size: 14pt;"><strong>Course Content:</strong></span></p>
@@ -45,25 +43,34 @@ def generate_standalone_product(elective, elective_info, elective_duration,
 
 # for 7+1 Products
 def generate_7_1_html(elective, elective_info, elective_duration,
-                      elective_name, instructor, instructor_info, instructor_banner, stet, timezonelist,
-                      course_number, course_url, cd, banking_fee, pageanchor, productsku, pagetitle, errorinfo):
+                      elective_name, stet, timezonelist,
+                      course_number, course_url, cd, banking_fee, productsku, pagetitle, errorinfo):
     try:
         fbankingfee = banking_fee + 10.50
         html_content = f"""
-        <p><a title="Click to learn more about {instructor}!" href="https://mortgageeducators.com/instructors{pageanchor}" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://mortgageeducators.com{instructor_banner}" alt="{instructor} Banner" /></a></p>
-        <p> </p>
-        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2024</span></p>
+        <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Date: </strong>{cd}, 2026</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;"><strong>Start Time: </strong>{stet} Time</span></p>
         <p style="text-align: center;"><span style="font-size: 18pt;">{timezonelist}</span></p>
         <p> </p>
-        <p style="text-align: center;"><span style="text-decoration: underline; font-size: 24pt;"><strong>UWM - 2024 7 + {elective_duration} Hour {elective_name} CE Webinar</strong></span></p>
-        <p> </p>
-        <p style="text-align: center;"><span style="font-size: 14pt;">  This course fulfills the 7 + {elective_duration} Hour {elective_name} NMLS mortgage continuing education requirement for 2024 in a live webinar format. </span></p>
+        <p><span style="font-size: 14pt;">Keep your mortgage loan originator (MLO) license active and up to date through our interactive, live continuing education webinar.</span></p>
+        <ul>
+        <li><span style="font-size: 14pt;">Fulfills 2026 NMLS CE Requirements</span></li>
+        <li><span style="font-size: 14pt;">Live Instructor Q&amp;A Session</span></li>
+        <li><span style="font-size: 14pt;">Taught By Trusted Mortgage Experts</span></li>
+        <li><span style="font-size: 14pt;">Benefit From Extended Support Hours</span></li>
+        <li><span style="font-size: 14pt;">Post-Class Email Access to Instructors</span></li>
+        <li><span style="font-size: 14pt;">Verified Instructor Reviews Available</span></li>
+        <li><span style="font-size: 14pt;">Instant Access To Course Materials</span></li>
+        </ul>
+        <p><span style="font-size: 14pt;"><em>This course fulfills the 7 + {elective_duration} hour {elective_name} NMLS mortgage continuing education requirement for 2026 in a live webinar format. </em></span></p>
         <p> </p>
         <p><a title="NMLS Webcam Requirement" href="https://nationwidelicensingsystem.org/courseprovider/Course%Provider%Resources/Functional%Specification%for%All%NMLS%Approved%Courses.pdf#page=27" target="_blank" rel="noopener noreferrer"><img style="display: block; margin-left: auto; margin-right: auto;" title="NMLS Webcam Requirement" src="https://mortgageeducators.com/images/00TemplateImages/webcam4.png" alt="Webcam Required, Per NMLS as of June 6th, 2022." width="652" height="129" /></a></p>
-        <p style="text-align: left;"><span style="text-decoration: underline; font-size: 14pt;"><strong>Course Content:</strong></span></p>
-        <p><span style="font-size: 10pt;"><em><span style="color: #ff0000;">*Courses will be taught in the following order*</span></em></span></p>
         <p> </p>
+        <p><span style="text-decoration: underline; font-size: 14pt;"><strong>About This Course</strong></span></p>
+        <p><span style="font-size: 14pt;">Join us for an engaging live webinar that transforms your continuing education experience with comprehensive course materials, interactive video lessons, and real-life industry insights. This program is meticulously designed into six 5-minute segments per chapter, complete with integrated quizzes, case studies, and a final exam to reinforce your learning. Course topics include everything from affordable housing to advertisement law and common violations to avoid. Get instant access to your course textbook whenever you need it, directly from your student portal.</span><br /><span style="font-size: 14pt;">Learn and interact in real-time with instructors boasting over 100 years of combined experience, backed by verified Trustpilot reviews for your peace of mind. Participants are also provided with extended support hours and the option to email instructors following the session for any clarifications or follow-up questions. Enroll today to secure your spot in this valuable learning opportunity!</span></p>
+        <p> </p>
+        <p style="text-align: left;"><span style="text-decoration: underline; font-size: 14pt;"><strong>Course Content</strong></span></p>
+        <p><span style="font-size: 10pt;"><em><span style="color: #ff0000;">*Courses will be taught in the following order*</span></em></span></p>
         <p><span style="text-decoration: underline; font-size: 12pt;"><strong>{elective_duration} Hour {elective_name} Elective: NMLS {course_number}</strong></span></p>
         """
 
@@ -86,7 +93,7 @@ def generate_7_1_html(elective, elective_info, elective_duration,
 # this would be the main function i guess.
 def productCreator(csv_file):
     elective_data = fc.load_elective_data(elective_file)
-    instructor_data = fc.load_instructor_data(instructor_file)
+#    instructor_data = fc.load_instructor_data(instructor_file)
 
     with (open(csv_file, 'r') as csvfile):
         reader = csv.DictReader(csvfile)
@@ -97,12 +104,7 @@ def productCreator(csv_file):
             elective_duration = elective_info.get('elective_duration', 0)
             elective_name = elective_info.get('elective_name')
 
-            # instructor data
-            instructor = row['instructor']
-            instructor_info = instructor_data.get(instructor, {})
-            instructor_banner = instructor_info.get('bannerlink')
-            instructor_fullname = f"{instructor_info.get('fname')} {instructor_info.get('lname')}"
-            pageanchor = instructor_info.get('pageanchor')
+
 
             # course time information
             month = row['month']
@@ -116,26 +118,25 @@ def productCreator(csv_file):
 
             # actual course info
             course_number = elective_info.get('course_number')
-            course_url = f"{month}-{day}-24-{elective_duration}-{elective}-ceq"
+            course_url = f"{month}-{day}-26-{elective_duration}-{elective}-ceq"
             cd = row['course_date']
             banking_fee = int(elective_info.get('elective_duration')) * 1.50
 
             # "standalone backend type stuff"
-            productsku = f"{month}.{day}.24 - {elective_duration} {elective} CEQ"
+            productsku = f"{month}.{day}.26 - {elective_duration} {elective} CEQ"
             pagetitle = f"{month}/{day} - {elective_duration} Hour {elective} CE Webinar"
 
             # "standalone backend type stuff"
-            fproductsku = f"{month}.{day}.24 - 7 + {elective_duration} {elective} CEQ"
+            fproductsku = f"{month}.{day}.26 - 7 + {elective_duration} {elective} CEQ"
             fpagetitle = f"{month}/{day} - 7 + {elective_duration} Hour {elective} CE Webinar"
 
             # 'fullstate' is tbe column I'm using to determine if the product is a 7+1 or a standalone
             fullstate = row['full']
-            lmsstate = row['lmsstate']
+#            lmsstate = row['lmsstate']
             errorinfo = f"{cd} {elective_name} -- "
 
             # LMS assignments
-            course_title = f"Webinar {elective_duration} Hour {elective_name} Elective CE {course_number} {cd}, 2024 {st} {tz}"
-            instructor_image = instructor_info.get('lmslink')
+            # course_title = f"Webinar {elective_duration} Hour {elective_name} Elective CE {course_number} {cd}, 2026 {st} {tz}"
 
             try:
 
@@ -145,11 +146,11 @@ def productCreator(csv_file):
                                                                 cd, st, tz, productsku, pagetitle, course_url,
                                                                 errorinfo, fproductsku, fpagetitle)
                     html_content += generate_7_1_html(elective, elective_info, elective_duration,
-                                                      elective_name, instructor, instructor_info, instructor_banner,
+                                                      elective_name,
                                                       stet, timezonelist, course_number, course_url, cd, banking_fee,
-                                                      pageanchor, productsku, pagetitle, errorinfo)
+                                                      productsku, pagetitle, errorinfo)
 
-                    fc.outputProductDir(elective, fullstate, month, day, html_content)
+                    fc.outputProductDir(elective, month, day, html_content)
 
                 elif fullstate == 'n':
                     standalone_content = f""" """
@@ -158,37 +159,36 @@ def productCreator(csv_file):
                                                                       course_url, errorinfo, fproductsku, fpagetitle)
 
                     standalone_content += generate_standalone_product(elective, elective_info, elective_duration,
-                                                                      elective_name, instructor, instructor_info,
-                                                                      instructor_banner, stet, timezonelist,
+                                                                      elective_name, stet, timezonelist,
                                                                       course_number, course_url, cd, banking_fee,
-                                                                      pageanchor,
                                                                       productsku, pagetitle, errorinfo)
 
 
-                    fc.outputProductDir(elective, fullstate, month, day, standalone_content)
+                    fc.outputProductDir(elective, month, day, standalone_content)
             finally:
-                try:
+                print("one done")
+#            finally:
+#                try:
 
-                    if lmsstate == 'y':
+#                    if lmsstate == 'y':
                         # create the LMS course content
-                        lms_content = f""" """
-                        lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
-                                                                    course_number, cd,
-                                                                    instructor_fullname, instructor_image, instructor,
-                                                                    pageanchor, stet,
-                                                                    timezonelist, st, errorinfo)
+#                        lms_content = f""" """
+#                        lms_content += lms.generate_lms_description(course_title, elective_duration, elective_name,
+#                                                                    course_number, cd,
+#                                                                    stet,
+#                                                                    timezonelist, st, errorinfo)
 
-                        fc.outputLmsDir(cd, elective, lms_content)
-                    elif lmsstate == 'n':
-                        print("I think I need something to print here in order to keep the loop going. I'm not sure.")
-                except Exception as e:
-                    print(f"You broke the LMS part of productGenerator. Nice! -- {errorinfo} {e}")
+#                        fc.outputLmsDir(cd, elective, lms_content)
+#                    elif lmsstate == 'n':
+#                        print("I think I need something to print here in order to keep the loop going. I'm not sure.")
+#                except Exception as e:
+#                    print(f"You broke the LMS part of productGenerator. Nice! -- {errorinfo} {e}")
 
 
 # these should be changed, definitely csv_file. you know, why make test products just make real ones and fix them if they're wrong lol
-csv_file = "csv/ohman.csv"
-elective_file = "json/elective_data.json"
-instructor_file = "json/instructors.json"
+csv_file = "csv\\o4.csv"
+elective_file = "work\\json\\elective_data.json"
+# instructor_file = "work\\json\\instructors.json"
 
 # this is calling the main to actually run
 productCreator(csv_file)
@@ -204,3 +204,15 @@ productCreator(csv_file)
 
 # For generating 7+1 product descriptions, title, alias, sku, page title, link
 # generate_7_1_html(csv_file, elective_file, instructor_file)
+
+
+
+
+#            instructor_image = instructor_info.get('lmslink')
+
+            # instructor data
+ #           instructor = row['instructor']
+  #          instructor_info = instructor_data.get(instructor, {})
+#           instructor_banner = instructor_info.get('bannerlink')
+#            instructor_fullname = f"{instructor_info.get('fname')} {instructor_info.get('lname')}"
+#            pageanchor = instructor_info.get('pageanchor')
